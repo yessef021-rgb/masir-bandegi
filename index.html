@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#1e3c72">
+<title>مسیر بندگی خدا | Hasti</title>
+<script src="https://eitaa.com/eitaa-web-app.js"></script>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+html, body {
+  background: #0b0a1a;
+  font-family: Tahoma, Arial, sans-serif;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* ==================== صفحه شروع ==================== */
+#startScreen {
+  background: linear-gradient(135deg, #1e3c72 0%, #7e57c2 50%, #e91e63 100%);
+  background-size: 400% 400%;
+  animation: bgShift 15s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  inset: 0;
+  padding: 15px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+@keyframes bgShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.start-container {
+  width: 100%;
+  max-width: 460px;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 30px;
+  padding: 25px 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(126, 87, 194, 0.4);
+  text-align: center;
+  position: relative;
+  border: 4px solid transparent;
+  background-clip: padding-box;
+  margin: auto;
+}
+
+.start-container::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 30px;
+  padding: 4px;
+  background: linear-gradient(135deg, #e91e63, #ffd60a, #06d6a0, #4da6ff, #7e57c2, #e91e63);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: borderRotate 5s linear infinite;
+  z-index: -1;
+}
+
+@keyframes borderRotate {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+.teacher-photo-wrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 18px;
+}
+
+.teacher-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 5px solid #4da6ff;
+  background: linear-gradient(135deg, #4da6ff, #1e3c72);
+  box-shadow: 0 8px 30px rgba(30, 60, 114, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+.photo-ring {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 3px dashed #4da6ff;
+  animation: ringRotate 10s linear infinite;
+  z-index: 1;
+}
+
+.photo-ring.ring2 {
+  inset: -18px;
+  border: 3px dotted #e91e63;
+  animation: ringRotate 15s linear infinite reverse;
+}
+
+@keyframes ringRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.game-title {
+  font-size: 26px;
+  margin: 12px 0 8px;
+  font-weight: 900;
+  background: linear-gradient(90deg, #e91e63, #7e57c2, #1e3c72, #4da6ff, #e91e63);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleShine 3s linear infinite;
+}
+
+@keyframes titleShine {
+  to { background-position: 300% center; }
+}
+
+.game-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.info-box {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 18px;
+  padding: 12px 16px;
+  margin: 16px 0;
+  border: 2px dashed #4da6ff;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+.info-row + .info-row {
+  border-top: 1px dashed #ccc;
+}
+
+.info-icon { font-size: 18px; }
+.info-label { color: #666; font-weight: bold; }
+.teacher-name { color: #1e3c72; font-weight: bold; }
+.teacher-phone { color: #e91e63; font-weight: bold; direction: ltr; }
+
+.big-btn {
+  background: linear-gradient(135deg, #1e3c72, #7e57c2, #e91e63);
+  background-size: 200% 200%;
+  color: #fff;
+  border: none;
+  padding: 14px 40px;
+  font-size: 19px;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 7px 0 #4a148c, 0 12px 30px rgba(126, 87, 194, 0.5);
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  animation: btnGradient 3s ease infinite;
+  position: relative;
+  overflow: hidden;
+  margin: 8px 0;
+  transition: transform 0.15s;
+}
+
+@keyframes btnGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.big-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 3px 0 #4a148c;
+}
+
+.logo-wrapper {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 2px dashed #4da6ff;
+}
+
+.logo-fallback {
+  font-size: 17px;
+  display: inline-block;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #1e3c72, #7e57c2);
+  border-radius: 16px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.copyright {
+  font-size: 11px;
+  color: #888;
+  margin-top: 10px;
+}
+
+/* ==================== صفحه بازی ==================== */
+#gameScreen {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: linear-gradient(135deg, #fef9e7 0%, #fdebd0 50%, #fadbd8 100%);
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  position: relative;
+  overflow-x: hidden;
+}
+
+#gameScreen::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255,215,0,0.18) 0%, transparent 25%),
+    radial-gradient(circle at 90% 80%, rgba(233,30,99,0.12) 0%, transparent 25%),
+    radial-gradient(circle at 50% 50%, rgba(77,166,255,0.12) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.game-wrap {
+  width: min(560px, 100%);
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.game-panel {
+  background: rgba(255, 255, 255, 0.96);
+  border: 3px solid #d4a017;
+  border-radius: 26px;
+  box-shadow:
+    0 15px 40px rgba(180, 130, 50, 0.25),
+    0 0 0 5px rgba(255, 215, 0, 0.15);
+  padding: 14px 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-logo {
+  text-align: center;
+  font-weight: 900;
+  font-size: 15px;
+  letter-spacing: 2px;
+  margin: 0 0 4px;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(90deg, #d4a017, #e91e63, #7e57c2, #d4a017);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleShine 4s linear infinite;
+}
+
+.game-panel h1 {
+  font-size: clamp(20px, 6vw, 32px);
+  text-align: center;
+  margin: 2px 0;
+  font-weight: 900;
+  background: linear-gradient(135deg, #b8860b, #d4a017, #e91e63, #d4a017, #b8860b);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleShine 5s linear infinite;
+}
+
+.game-sub {
+  text-align: center;
+  margin: 2px 0 10px;
+  color: #7a5c1e;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.stats {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
+.badge {
+  border: 2px solid #d4a017;
+  border-radius: 999px;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #fffef7, #fdf3d0);
+  font-weight: bold;
+  color: #4a3520;
+  font-size: 13px;
+  box-shadow: 0 3px 10px rgba(212, 160, 23, 0.25);
+}
+
+.badge b {
+  color: #b8860b;
+  font-size: 15px;
+}
+
+#board {
+  display: block;
+  width: min(100%, 480px);
+  aspect-ratio: 1;
+  margin: 10px auto 6px;
+  border: 3px solid #d4a017;
+  border-radius: 16px;
+  background: #fffdf5;
+  touch-action: none;
+  box-shadow:
+    0 8px 25px rgba(180, 130, 50, 0.25),
+    0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+#msg {
+  text-align: center;
+  font-weight: bold;
+  min-height: 34px;
+  padding: 6px;
+  color: #6b4a10;
+  font-size: 13px;
+  text-shadow: 0 1px 3px rgba(255,255,255,0.8);
+  line-height: 1.5;
+}
+
+/* ==================== دکمه‌های کنترل ==================== */
+.controls {
+  display: grid;
+  grid-template-columns: repeat(3, 58px);
+  grid-template-rows: repeat(2, 52px);
+  gap: 8px;
+  justify-content: center;
+  margin-top: 8px;
+  direction: ltr;
+}
+
+.controls button {
+  border: 2px solid #d4a017;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fffef7, #fdf0c0);
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #b8860b;
+  box-shadow:
+    0 4px 0 #d4a017,
+    0 6px 16px rgba(212, 160, 23, 0.3);
+  transition: all 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  padding: 0;
+  touch-action: manipulation;
+}
+
+.controls button:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 0 0 #d4a017,
+    0 3px 10px rgba(212, 160, 23, 0.4);
+  background: linear-gradient(135deg, #fdf0c0, #ffe680);
+}
+
+.up    { grid-column: 2; grid-row: 1; }
+.left  { grid-column: 1; grid-row: 2; }
+.down  { grid-column: 2; grid-row: 2; }
+.right { grid-column: 3; grid-row: 2; }
+
+.action {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.action button {
+  font-size: 14px;
+  padding: 10px 26px;
+  border-radius: 40px;
+  background: linear-gradient(135deg, #d4a017, #e91e63, #7e57c2, #d4a017);
+  background-size: 200% 200%;
+  animation: btnGradient 3s ease infinite;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow:
+    0 4px 0 #8b6508,
+    0 8px 20px rgba(212, 160, 23, 0.4);
+  transition: transform 0.15s;
+  font-family: inherit;
+}
+
+.action button:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 #8b6508,
+    0 4px 12px rgba(212, 160, 23, 0.4);
+}
+
+.game-small {
+  text-align: center;
+  font-size: 11px;
+  color: #8a7040;
+  margin: 10px 0 2px;
+  line-height: 1.6;
+}
+
+/* ==================== دکمه موسیقی ==================== */
+.music-toggle {
+  position: fixed;
+  bottom: calc(15px + env(safe-area-inset-bottom));
+  left: 15px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1e3c72, #7e57c2);
+  color: #fff;
+  border: 3px solid #fff;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  padding: 0;
+  transition: transform 0.2s;
+}
+
+.music-toggle:active { transform: scale(0.9); }
+
+.music-toggle.muted {
+  background: linear-gradient(135deg, #999, #666);
+  opacity: 0.85;
+}
+
+/* ==================== Media Queries ==================== */
+@media (max-width: 380px) {
+  .controls {
+    grid-template-columns: repeat(3, 52px);
+    grid-template-rows: repeat(2, 46px);
+    gap: 6px;
+  }
+  .controls button { font-size: 19px; border-radius: 12px; }
+  .badge { padding: 5px 10px; font-size: 12px; }
+  .game-panel { padding: 12px 10px; border-radius: 22px; }
+  .teacher-photo-wrapper { width: 110px; height: 110px; }
+}
+
+@media (min-width: 700px) {
+  #board { width: min(100%, 540px); }
+  .game-wrap { width: min(620px, 100%); }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== صفحه شروع ========== -->
+<div id="startScreen">
+  <div class="start-container">
+    <div class="teacher-photo-wrapper">
+      <div class="photo-ring"></div>
+      <div class="photo-ring ring2"></div>
+      <div class="teacher-photo">
+        <span>🌱</span>
+      </div>
+    </div>
+    <h1 class="game-title">مسیر بندگی خدا</h1>
+    <p class="game-subtitle">با انتخاب راه درست، قدم‌به‌قدم به خانه می‌رسی</p>
+
+    <div class="info-box">
+      <div class="info-row">
+        <span class="info-icon">🎮</span>
+        <span class="info-label">نوع بازی:</span>
+        <span>ماجراجویی معنوی</span>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">🏁</span>
+        <span class="info-label">مراحل:</span>
+        <span>۵ مرحله</span>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">❤️</span>
+        <span class="info-label">جان:</span>
+        <span>۳ عدد</span>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">⭐</span>
+        <span class="info-label">توشه:</span>
+        <span>جمع‌آوری ستاره</span>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">👨‍🏫</span>
+        <span class="info-label">مربی:</span>
+        <span class="teacher-name">Hasti</span>
+      </div>
+    </div>
+
+    <button class="big-btn" id="startGameBtn">
+      <span>🚀</span> شروع سفر
+    </button>
+
+    <div class="logo-wrapper">
+      <div class="logo-fallback">✨ Hasti ✨</div>
+      <p class="copyright">© ۲۰۲۵ — مسیر بندگی</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== صفحه بازی ========== -->
+<div id="gameScreen">
+  <div class="game-wrap">
+    <main class="game-panel">
+      <div class="game-logo">Hasti</div>
+      <h1>🌱 مسیر بندگی خدا</h1>
+      <p class="game-sub">با انتخاب راه درست، قدم‌به‌قدم به خانه می‌رسی.</p>
+
+      <div class="stats">
+        <span class="badge">❤️ جان: <b id="lives">3</b></span>
+        <span class="badge">⭐ توشه: <b id="stars">0</b></span>
+        <span class="badge">🏁 مرحله: <b id="stage">1</b>/5</span>
+      </div>
+
+      <canvas id="board" width="701" height="701"></canvas>
+      <div id="msg" aria-live="polite">از 🎒 شروع کن و راه 🏡 را پیدا کن.</div>
+
+      <div class="controls">
+        <button class="up" data-m="0,-1" aria-label="بالا">▲</button>
+        <button class="left" data-m="-1,0" aria-label="چپ">◀</button>
+        <button class="down" data-m="0,1" aria-label="پایین">▼</button>
+        <button class="right" data-m="1,0" aria-label="راست">▶</button>
+      </div>
+
+      <div class="action">
+        <button id="restart">🔄 شروع دوباره</button>
+      </div>
+      <p class="game-small">فقط برخورد با دیوار یا بیرونِ مسیر، ۱ جان کم می‌کند. هر مرحله یک صفحه دارد.</p>
+    </main>
+  </div>
+</div>
+
+<button class="music-toggle" id="musicToggle" aria-label="پخش موسیقی">🎵</button>
+
+<script>
+(function() {
+  'use strict';
+
+  // ========== اتصال به ایتا ==========
+  const EitaaApp = window.EitaaWebApp || null;
+
+  function haptic(type) {
+    if (!EitaaApp) return;
+    try {
+      if (type === 'success') EitaaApp.HapticFeedback.notificationOccurred('success');
+      else if (type === 'error') EitaaApp.HapticFeedback.notificationOccurred('error');
+      else if (type === 'warning') EitaaApp.HapticFeedback.notificationOccurred('warning');
+      else EitaaApp.HapticFeedback.impactOccurred('light');
+    } catch (e) { /* silent */ }
+  }
+
+  // آماده‌سازی ایتا
+  if (EitaaApp) {
+    try {
+      EitaaApp.ready();
+      EitaaApp.expand();
+      EitaaApp.setHeaderColor && EitaaApp.setHeaderColor('#1e3c72');
+      EitaaApp.setBackgroundColor && EitaaApp.setBackgroundColor('#fef9e7');
+      EitaaApp.disableVerticalSwipes && EitaaApp.disableVerticalSwipes();
+    } catch (e) { console.warn('Eitaa init error:', e); }
+  }
+
+  // ========== عناصر ==========
+  const startScreen = document.getElementById('startScreen');
+  const gameScreen = document.getElementById('gameScreen');
+  const startBtn = document.getElementById('startGameBtn');
+  const musicToggle = document.getElementById('musicToggle');
+  let musicPlaying = false;
+
+  const c = document.getElementById('board');
+  const ctx = c.getContext('2d');
+  const livesEl = document.getElementById('lives');
+  const starsEl = document.getElementById('stars');
+  const stageEl = document.getElementById('stage');
+  const msg = document.getElementById('msg');
+
+  const N = 25;
+  let grid, px, py, gx, gy, lives = 3, stars = 0, stage = 1, ended = false;
+  let trap = [];
+
+  // ========== ساخت maze ==========
+  function makeMaze() {
+    grid = Array.from({ length: N }, () => Array(N).fill(1));
+    let stack = [[1, 1]];
+    grid[1][1] = 0;
+    const ds = [[2, 0], [-2, 0], [0, 2], [0, -2]];
+    while (stack.length) {
+      let [x, y] = stack[stack.length - 1];
+      let a = ds.filter(([dx, dy]) =>
+        x + dx > 0 && x + dx < N - 1 &&
+        y + dy > 0 && y + dy < N - 1 &&
+        grid[y + dy][x + dx]
+      );
+      if (!a.length) { stack.pop(); continue; }
+      let [dx, dy] = a[Math.floor(Math.random() * a.length)];
+      grid[y + dy / 2][x + dx / 2] = 0;
+      grid[y + dy][x + dx] = 0;
+      stack.push([x + dx, y + dy]);
+    }
+    for (let i = 0; i < 55; i++) {
+      let x = 1 + Math.floor(Math.random() * (N - 2));
+      let y = 1 + Math.floor(Math.random() * (N - 2));
+      if (grid[y][x] && (
+        (grid[y][x - 1] === 0 && grid[y][x + 1] === 0) ||
+        (grid[y - 1][x] === 0 && grid[y + 1][x] === 0)
+      )) grid[y][x] = 0;
+    }
+    px = 1; py = 1; gx = N - 2; gy = N - 2;
+    grid[py][px] = 0; grid[gy][gx] = 0;
+    trap = [];
+    let open = [];
+    for (let y = 1; y < N - 1; y++) {
+      for (let x = 1; x < N - 1; x++) {
+        if (!grid[y][x] && !(x === px && y === py) && !(x === gx && y === gy)) {
+          open.push([x, y]);
+        }
+      }
+    }
+    for (let i = 0; i < Math.min(10, open.length); i++) {
+      let k = Math.floor(Math.random() * open.length);
+      let p = open.splice(k, 1)[0];
+      trap.push({ x: p[0], y: p[1] });
+    }
+    msg.textContent = 'مرحله ' + stage + ' آماده است؛ با دقت مسیرت را انتخاب کن.';
+    draw();
+  }
+
+  // ========== رسم ==========
+  function draw() {
+    const rect = c.getBoundingClientRect();
+    const s = Math.min(rect.width || 480, 701);
+    const d = window.devicePixelRatio || 1;
+    c.width = s * d;
+    c.height = s * d;
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+    const q = s / N;
+    ctx.clearRect(0, 0, s, s);
+
+    for (let y = 0; y < N; y++) {
+      for (let x = 0; x < N; x++) {
+        if (grid[y][x]) {
+          const grad = ctx.createLinearGradient(x * q, y * q, x * q + q, y * q + q);
+          grad.addColorStop(0, '#8b5a2b');
+          grad.addColorStop(0.5, '#a0522d');
+          grad.addColorStop(1, '#6b3e1a');
+          ctx.fillStyle = grad;
+          ctx.fillRect(x * q, y * q, q, q);
+          ctx.strokeStyle = 'rgba(255, 215, 0, 0.25)';
+          ctx.lineWidth = 0.8;
+          ctx.strokeRect(x * q + 0.5, y * q + 0.5, q - 1, q - 1);
+        } else {
+          const grad = ctx.createRadialGradient(
+            x * q + q / 2, y * q + q / 2, 1,
+            x * q + q / 2, y * q + q / 2, q
+          );
+          grad.addColorStop(0, '#fffef7');
+          grad.addColorStop(0.7, '#fdf6e3');
+          grad.addColorStop(1, '#f5e6c8');
+          ctx.fillStyle = grad;
+          ctx.fillRect(x * q, y * q, q, q);
+          ctx.strokeStyle = 'rgba(212, 160, 23, 0.15)';
+          ctx.lineWidth = 0.6;
+          ctx.strokeRect(x * q + 0.5, y * q + 0.5, q - 1, q - 1);
+        }
+      }
+    }
+
+    trap.forEach(t => {
+      const cx = (t.x + 0.5) * q;
+      const cy = (t.y + 0.5) * q;
+      const gradient = ctx.createRadialGradient(cx, cy, 1, cx, cy, q * 1.1);
+      gradient.addColorStop(0, 'rgba(233, 30, 99, 0.25)');
+      gradient.addColorStop(0.6, 'rgba(126, 87, 194, 0.12)');
+      gradient.addColorStop(1, 'rgba(126, 87, 194, 0)');
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(cx, cy, q * 1.1, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = Math.max(14, q * 0.7) + 'px serif';
+
+    ctx.shadowColor = 'rgba(233, 30, 99, 0.6)';
+    ctx.shadowBlur = 14;
+    ctx.fillText('🏡', (gx + 0.5) * q, (gy + 0.5) * q);
+
+    ctx.shadowColor = 'rgba(77, 166, 255, 0.7)';
+    ctx.shadowBlur = 14;
+    ctx.fillText('🎒', (px + 0.5) * q, (py + 0.5) * q);
+
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+  }
+
+  // ========== ذخیره پیشرفت در CloudStorage ایتا ==========
+  function saveProgress() {
+    if (!EitaaApp || !EitaaApp.CloudStorage) return;
+    try {
+      EitaaApp.CloudStorage.setItem('masir_stage', String(stage));
+      EitaaApp.CloudStorage.setItem('masir_stars', String(stars));
+      EitaaApp.CloudStorage.setItem('masir_lives', String(lives));
+    } catch (e) { /* silent */ }
+  }
+
+  async function loadProgress() {
+    if (!EitaaApp || !EitaaApp.CloudStorage) return null;
+    try {
+      const s = await EitaaApp.CloudStorage.getItem('masir_stage');
+      const st = await EitaaApp.CloudStorage.getItem('masir_stars');
+      const l = await EitaaApp.CloudStorage.getItem('masir_lives');
+      if (s && st && l) {
+        return { stage: +s, stars: +st, lives: +l };
+      }
+    } catch (e) { /* silent */ }
+    return null;
+  }
+
+  // ========== حرکت ==========
+  function move(dx, dy) {
+    if (ended) return;
+    const nx = px + dx;
+    const ny = py + dy;
+
+    if (nx < 0 || ny < 0 || nx >= N || ny >= N || grid[ny][nx]) {
+      loseLife('💥 به دیوار خوردی! دقیقاً ۱ جان کم شد.');
+      return;
+    }
+
+    px = nx;
+    py = ny;
+
+    if (Math.random() < 0.12) {
+      stars++;
+      starsEl.textContent = stars;
+      msg.textContent = '⭐ یک توشه خوب برای ادامه راه پیدا کردی.';
+      haptic('light');
+    }
+
+    if (px === gx && py === gy) {
+      if (stage === 5) {
+        ended = true;
+        msg.textContent = '🌸 آفرین! به خانه رسیدی و ۵ مرحله مسیر بندگی خدا را کامل کردی.';
+        haptic('success');
+        draw();
+        return;
+      }
+      stage++;
+      stageEl.textContent = stage;
+      msg.textContent = 'الحمدلله! مرحله بعدی سخت‌تر است…';
+      haptic('success');
+      draw();
+      saveProgress();
+      setTimeout(makeMaze, 700);
+      return;
+    }
+    draw();
+  }
+
+  function loseLife(text) {
+    lives--;
+    livesEl.textContent = lives;
+    msg.textContent = text;
+    haptic('error');
+    if (lives <= 0) {
+      ended = true;
+      msg.textContent = '💔 جان‌ها تمام شد. دوباره تلاش کن؛ راه خانه هنوز هست.';
+      return;
+    }
+    draw();
+  }
+
+  function reset() {
+    lives = 3;
+    stars = 0;
+    stage = 1;
+    ended = false;
+    livesEl.textContent = 3;
+    starsEl.textContent = 0;
+    stageEl.textContent = 1;
+    makeMaze();
+    saveProgress();
+  }
+
+  // ========== رویدادها ==========
+  // کیبورد (برای دسکتاپ)
+  document.addEventListener('keydown', e => {
+    const m = {
+      ArrowUp: [0, -1],
+      ArrowDown: [0, 1],
+      ArrowLeft: [-1, 0],
+      ArrowRight: [1, 0]
+    };
+    if (m[e.key]) {
+      e.preventDefault();
+      move(...m[e.key]);
+    }
+  });
+
+  // دکمه‌های کنترل
+  document.querySelectorAll('[data-m]').forEach(b => {
+    const handler = (e) => {
+      e.preventDefault();
+      const [x, y] = b.dataset.m.split(',').map(Number);
+      move(x, y);
+    };
+    b.addEventListener('click', handler);
+    b.addEventListener('touchstart', handler, { passive: false });
+  });
+
+  document.getElementById('restart').onclick = () => {
+    haptic('light');
+    reset();
+  };
+
+  window.addEventListener('resize', () => {
+    if (gameScreen.style.display === 'flex') draw();
+  });
+
+  // ========== شروع بازی ==========
+  async function startGame() {
+    haptic('light');
+
+    // دکمه اصلی ایتا رو مخفی کن
+    if (EitaaApp && EitaaApp.MainButton) {
+      try { EitaaApp.MainButton.hide(); } catch (e) {}
+    }
+
+    startScreen.style.display = 'none';
+    gameScreen.style.display = 'flex';
+
+    // تلاش برای بازیابی پیشرفت
+    const saved = await loadProgress();
+    if (saved && saved.stage > 1) {
+      lives = saved.lives;
+      stars = saved.stars;
+      stage = saved.stage;
+      livesEl.textContent = lives;
+      starsEl.textContent = stars;
+      stageEl.textContent = stage;
+    }
+
+    reset();
+    setTimeout(draw, 60);
+  }
+
+  startBtn.addEventListener('click', startGame);
+
+  // دکمه MainButton ایتا برای شروع
+  if (EitaaApp && EitaaApp.MainButton) {
+    try {
+      EitaaApp.MainButton.setText('🚀 شروع سفر');
+      EitaaApp.MainButton.show();
+      EitaaApp.MainButton.onClick(startGame);
+    } catch (e) { /* silent */ }
+  }
+
+  // دکمه بازگشت ایتا
+  if (EitaaApp && EitaaApp.BackButton) {
+    try {
+      EitaaApp.BackButton.onClick(() => {
+        if (gameScreen.style.display === 'flex') {
+          gameScreen.style.display = 'none';
+          startScreen.style.display = 'flex';
+          if (EitaaApp.MainButton) {
+            EitaaApp.MainButton.setText('🚀 شروع سفر');
+            EitaaApp.MainButton.show();
+          }
+        } else {
+          EitaaApp.close();
+        }
+      });
+    } catch (e) { /* silent */ }
+  }
+
+  // ========== موسیقی ==========
+  musicToggle.addEventListener('click', () => {
+    musicPlaying = !musicPlaying;
+    musicToggle.textContent = musicPlaying ? '🔇' : '🎵';
+    musicToggle.classList.toggle('muted', !musicPlaying);
+    haptic('light');
+  });
+
+  // ========== وضعیت اولیه ==========
+  gameScreen.style.display = 'none';
+  startScreen.style.display = 'flex';
+})();
+</script>
+</body>
+</html>
